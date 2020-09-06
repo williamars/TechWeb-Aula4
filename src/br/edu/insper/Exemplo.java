@@ -1,6 +1,8 @@
 package br.edu.insper;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,30 @@ public class Exemplo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String nome = request.getParameter("nome");
+		String email = request.getParameter("email");
+		String curso = request.getParameter("curso");
+		
+		PrintWriter out = response.getWriter();
+		
+		// Recurso de confirmação dos dados
+		if(nome.isEmpty() || email.isEmpty() || curso.isEmpty()) {
+			out.println("<html>");
+			out.println("<body>");
+			out.print("<h4>você não preencheu todos os seus dados!</h4>");			
+			out.println("</body>");
+			out.println("</html>");
+		} else {
+			out.println("<html>");
+			out.println("<body>");
+			out.println("<h3>Sucesso! Você está inscrito. Confirmando os seus dados</h3>");
+			out.println("<h4>O seu nome é " + nome + "</h4>" );
+			out.println("<h4>O seu e-mail é " + email + "</h4>");
+			out.println("<h4>O seu curso é " + curso + "</h4>");
+			out.println("</body>");
+			out.println("</html>");
+		}
 	}
 
 	/**
